@@ -15,9 +15,10 @@ function Header() {
   }
 
   return (
-    <header className='header'>
+    <header className='header' style={{width:"100%", float: "left", margin: "0%"}}>
       <div className='logo'>
-        <Link to='/'>GoalSetter</Link>
+        <h4>Redux Authentication</h4>
+        {/* <Link to='/'>Dashboard</Link> */}
       </div>
       <ul>
         {user ? (
