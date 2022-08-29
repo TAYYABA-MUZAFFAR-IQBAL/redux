@@ -26,6 +26,24 @@ export const getAll = createAsyncThunk("goals/getAll", async (_, thunkAPI) => {
     return thunkAPI.rejectWithValue(message);
   }
 });
+// //get all users count
+// export const AllCount = createAsyncThunk("count/getAll", async (_, thunkAPI) => {
+//   try {
+//     const token = thunkAPI.getState().auth.user.token;
+//     const data=  await userService.getUsers(token);
+//     const countLength= data.leghth
+//     return  countLength;
+
+    
+//   } catch (error) {
+//     const message =
+//       (error.response && error.response.data && error.response.data.message) ||
+//       error.message ||
+//       error.toString();
+//     return thunkAPI.rejectWithValue(message);
+//   }
+// });
+
 
 // Delete user 
 export const deleteOne = createAsyncThunk(
@@ -73,21 +91,27 @@ export const UserSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
-    //   .addCase(deleteOne.pending, (state) => {
-    //     state.isLoading = true;
-    //   })
-    //   .addCase(deleteOne.fulfilled, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isSuccess = true;
-    //     state.Users = state.Users.filter(
-    //       (user) => user._id !== action.payload.id
-    //     );
-    //   })
-    //   .addCase(deleteOne.rejected, (state, action) => {
-    //     state.isLoading = false;
-    //     state.isError = true;
-    //     state.message = action.payload;
-    //   });
+      // .addCase(AllCount.fulfilled, (state, action) => {
+      //   state.isLoading = false;
+      //   state.isSuccess = true;
+      //   state.users= action.payload.leghth;
+      // })
+      .addCase(deleteOne.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteOne.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.users = state.users.filter(
+          (user) => user._id !== action.payload.id
+          
+        );
+      })
+      .addCase(deleteOne.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
     //   return builder
   },
  });

@@ -12,15 +12,15 @@ import {
   IconButton,
   Tooltip,
 } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Spinner from "../components/Spinner";
+// import Spinner from "../components/Spinner";
 import { orange } from "@material-ui/core/colors";
-import VisibilityIcon from "@material-ui/icons/Visibility";
-import EditIcon from "@material-ui/icons/Edit";
+// import VisibilityIcon from "@material-ui/icons/Visibility";
+// import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { Link } from "react-router-dom";
-import axios from "axios";
+// import { Link } from "react-router-dom";
+// import axios from "axios";
 import { useState, useEffect } from "react";
 import { deleteOne, getAll, reset } from "../features/user/userSlice";
 const useStyles = makeStyles({
@@ -42,26 +42,28 @@ const List = () => {
   const { users, isLoading, isError, message } = useSelector(
     (state) => state.users
   );
-    const [students, setStudents] = useState();
-  //   const data= Users.studentData
-  // console.log(userStore);
-  console.log("students",students);
-  // console.log("==============store", userStore);
+    // const [students, setStudents] = useState();
+    //  const data= users.studentData
+    //  const length=data?.length
+    //  console.log("count of all data is",length);
+
+  // console.log("==========",users);
+  // console.log("============data", data);
 
   useEffect(() => {
     if (isError) {
       console.log(message);
     }
-    dispatch(getAll(setStudents(users)));
+    dispatch(getAll());
 
     return () => {
       dispatch(reset());
     };
   }, [isError, message, dispatch]);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  // if (isLoading) {
+  //   return <Spinner />;
+  // }
   //    console.log(Users);
 
   // const [students, setStudents] = useState([]);
@@ -85,15 +87,8 @@ const List = () => {
   // }, []);
 
   // const handleDelete = async (id) => {
-  //   await axios.delete(`http://localhost:2000/student/${id}`);
-  //   var newstudent = students.filter((item) => {
-  //     // console.log(item);
-  //     return item.id !== id;
-  //   });
+  //   dispatch(deleteOne(id))
   //   window.location.reload(false);
-  //   setStudents(newstudent);
-
-  //   // return window.confirm("Are you sure you want to delete?");
   // };
 
   return (
@@ -129,8 +124,8 @@ const List = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((student, i) => {
-              console.log("+++++++++++++++++++++", student);
+            {users?.map((student, i) => {
+              // console.log("+++++++++++++++++++++", student);
               return (
                 <TableRow key={i}>
                   <TableCell align="center">{i}</TableCell>
@@ -138,15 +133,15 @@ const List = () => {
                   <TableCell align="center">{student.name}</TableCell>
                   <TableCell align="center">{student.email}</TableCell>
                   <TableCell align="center">
-                    <Tooltip title="View">
+                    {/* <Tooltip title="View"><span>
                       <IconButton>
                         <VisibilityIcon color="primary" />
-                      </IconButton>
-                    </Tooltip>
+                      </IconButton></span>
+                    </Tooltip> */}
                     <Tooltip title="Delete">
-                      {/* <IconButton onClick={() => handleDelete(student._id)}>
+                    <span> <IconButton onClick={() => dispatch(deleteOne(student._id)) }>
                         <DeleteIcon color="secondary" />
-                      </IconButton> */}
+                      </IconButton></span>
                     </Tooltip>
                   </TableCell>
                 </TableRow>

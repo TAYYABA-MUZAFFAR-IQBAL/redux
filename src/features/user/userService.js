@@ -11,8 +11,9 @@ export const getUsers = async (token) => {
   };
 
   const response = await axios.get(API_URL, config);
-
-  return response.data;
+  const data = response.data.studentData;
+  console.log(data);
+  return data;
 };
 // Delete user
 export const deleteUser = async (goalId, token) => {
@@ -22,8 +23,8 @@ export const deleteUser = async (goalId, token) => {
     },
   };
 
-  const response = await axios.delete(API_URL + goalId, config);
-
+  const response = await axios.delete(API_URL + "/" + goalId, config);
+  window.location.reload(false);
   return response.data;
 };
 const userService = {
