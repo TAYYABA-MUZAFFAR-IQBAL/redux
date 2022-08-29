@@ -5,8 +5,6 @@ function Count() {
   const { users} = useSelector(
     (state) => state.users
   );
-
-    //  const data= users.studentData
      const length=users?.length
      console.log("count of all data is",length);
 
